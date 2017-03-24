@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            function loadXMLDoc() {
+			    var xmlhttp;
+			    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+			        xmlhttp = new XMLHttpRequest();
+			    } else { // code for IE6, IE5
+			        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			    }
+			    let ok = false;
+			    xmlhttp.onreadystatechange = function() {
+			    	/*ajax 5种状态.
+				        0: 请求未初始化
+						1: 服务器连接已建立
+						2: 请求已接收
+						3: 请求处理中
+						4: 请求已完成，且响应已就绪
+					*/
+					if(!ok && xmlhttp.readyState == 3 && xmlhttp.status == 200){
+						//服务器返回需要的第一页数据
+						document.write(`需要的数据: ${xmlhttp.responseText}`),ok = true;
+					}else if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+						//后续分页数据
+						document.write(`第二次传输: ${xmlhttp.responseText}`);
+					}	
+
+
+				}
+			    xmlhttp.open("GET", "http://localhost:3001/", true);
+			    xmlhttp.send();
+			}
+
+			loadXMLDoc();
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
